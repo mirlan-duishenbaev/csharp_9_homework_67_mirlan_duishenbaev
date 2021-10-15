@@ -49,6 +49,19 @@ namespace country_API.Controllers
             return new ObjectResult(country);
         }
 
+
+        //Поиск через byName?Name=...
+        [HttpGet("byName")]
+        public async Task<ActionResult<Country>> Get(string name)
+        {
+            Country country = await _db.Countries.FirstOrDefaultAsync(x => x.Name == name);
+            if (country == null)
+                return NotFound();
+
+            return new ObjectResult(country);
+        }
+
+
         [HttpPost]
         public async Task<ActionResult<Country>> Post(Country country)
         {
