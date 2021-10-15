@@ -50,11 +50,10 @@ namespace country_API.Controllers
         }
 
 
-        //Поиск через byName?Name=...
-        [HttpGet("byName")]
+        [HttpGet("name/{name}")]
         public async Task<ActionResult<Country>> Get(string name)
         {
-            Country country = await _db.Countries.FirstOrDefaultAsync(x => x.Name == name);
+            Country country = await _db.Countries.FirstOrDefaultAsync(x => x.Name.ToLower() == name);
             if (country == null)
                 return NotFound();
 
